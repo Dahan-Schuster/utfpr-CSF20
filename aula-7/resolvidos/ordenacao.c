@@ -183,19 +183,27 @@ void InsertionSort (int *vetor, int tamanho, unsigned long int *cp, unsigned lon
 void InsertionSortRec (int *vetor, int tamanho, unsigned long int *st, unsigned long int *tr) {
   (*st)++;
 
+  // salva estaticamente os índices da iterações
   static int i = 1, j = 0, i_key = 1;
   static int key;
 
+  // i itera pelo vetor da esquerda para a direita
   if (i < tamanho) {
     key = vetor[i];
 
+    // j itera para a esquerda a partir da chave
     if (j >= 0) {
+      // caso a chave seja menor que a posição atual do vetor em j
       if (key < vetor[j]) {
+        // realiza a troca e incrementa a quantidade total de trocas
         vetor[j+1] = vetor[j], (*tr)++;
       
+        // atualiza os índices e chama a próxima iteração
+        // irá iterar apenas por j para a esquerda
         i_key = j, j--;
         InsertionSortRec(vetor, tamanho, st, tr);
       } else
+          // quando a cahve não for menor, insere ela no índice salvo
           vetor[i_key] = key, (*tr)++;
     }
     
@@ -326,7 +334,7 @@ int main () {
   srand(time(NULL));
 
   int i;
-  int tamanho = 500;
+  int tamanho = 80000;
 
   int *vBubble1 = (int *)malloc(tamanho * sizeof(int));
   int *vSelect1 = (int *)malloc(tamanho * sizeof(int));
@@ -344,17 +352,17 @@ int main () {
 
   printf("Itens: %d\n\n", tamanho);
 
-  testBubble(vBubble1, tamanho);
-  testBubbleRec(vBubble2, tamanho);
+  // testBubble(vBubble1, tamanho);
+  // testBubbleRec(vBubble2, tamanho);
 
-  printf("\n");
+  // printf("\n");
 
-  testSelection(vSelect1, tamanho);
-  testSelectionRec(vSelect2, tamanho);
+  // testSelection(vSelect1, tamanho);
+  // testSelectionRec(vSelect2, tamanho);
 
-  printf("\n");
+  // printf("\n");
 
-  testInsertion(vInsert1, tamanho);
+  // testInsertion(vInsert1, tamanho);
   testInsertionRec(vInsert2, tamanho);
 
   free (vBubble1);
